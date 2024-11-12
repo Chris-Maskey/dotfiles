@@ -14,12 +14,7 @@ return {
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
     "rafamadriz/friendly-snippets", -- useful snippets
     "onsails/lspkind.nvim", -- vs-code like pictograms
-    {
-      "Exafunction/codeium.nvim",
-      cmd = "Codeium",
-      build = ":Codeium Auth",
-      opts = {},
-    },
+    "Exafunction/codeium.vim",
   },
   config = function()
     local cmp = require("cmp")
