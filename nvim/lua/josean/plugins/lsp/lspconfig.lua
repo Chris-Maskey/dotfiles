@@ -164,44 +164,82 @@ return {
 
     lsp.on_attach(function(client, bufnr)
       local opts = { buffer = bufnr, remap = false }
+      local keymap = vim.keymap -- for conciseness
 
-      vim.keymap.set("n", "gr", function()
-        vim.lsp.buf.references()
-      end, vim.tbl_deep_extend("force", opts, { desc = "LSP Goto Reference" }))
-      vim.keymap.set("n", "gd", function()
-        vim.keymap.set("n", "K", function()
-          vim.lsp.buf.hover()
-        end, vim.tbl_deep_extend("force", opts, { desc = "LSP Hover" }))
-        vim.keymap.set("n", "<leader>vws", function()
-          vim.lsp.buf.workspace_symbol()
-        end, vim.tbl_deep_extend("force", opts, { desc = "LSP Workspace Symbol" }))
-        vim.keymap.set("n", "<leader>vd", function()
-          vim.diagnostic.setloclist()
-        end, vim.tbl_deep_extend("force", opts, { desc = "LSP Show Diagnostics" }))
-        vim.keymap.set("n", "[d", function()
-          vim.diagnostic.goto_next()
-        end, vim.tbl_deep_extend("force", opts, { desc = "Next Diagnostic" }))
-        vim.keymap.set("n", "]d", function()
-          vim.diagnostic.goto_prev()
-        end, vim.tbl_deep_extend("force", opts, { desc = "Previous Diagnostic" }))
-        vim.keymap.set("n", "<leader>vca", function()
-          vim.lsp.buf.code_action()
-        end, vim.tbl_deep_extend("force", opts, { desc = "LSP Code Action" }))
-        vim.lsp.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-        vim.lsp.buf.references()
-      end, vim.tbl_deep_extend("force", opts, { desc = "LSP References" }))
-      vim.keymap.set("n", "<leader>vrn", function()
-        vim.lsp.buf.rename()
-      end, vim.tbl_deep_extend("force", opts, { desc = "LSP Rename" }))
-      vim.keymap.set("i", "<C-h>", function()
-        vim.lsp.buf.signature_help()
-      end, vim.tbl_deep_extend("force", opts, { desc = "LSP Signature Help" }))
+      -- vim.keymap.set("n", "gr", function()
+      --   vim.lsp.buf.references()
+      -- end, vim.tbl_deep_extend("force", opts, { desc = "LSP Goto Reference" }))
+      -- vim.keymap.set("n", "gd", function()
+      --   vim.keymap.set("n", "K", function()
+      --     vim.lsp.buf.hover()
+      --   end, vim.tbl_deep_extend("force", opts, { desc = "LSP Hover" }))
+      --   vim.keymap.set("n", "<leader>vws", function()
+      --     vim.lsp.buf.workspace_symbol()
+      --   end, vim.tbl_deep_extend("force", opts, { desc = "LSP Workspace Symbol" }))
+      --   vim.keymap.set("n", "<leader>vd", function()
+      --     vim.diagnostic.setloclist()
+      --   end, vim.tbl_deep_extend("force", opts, { desc = "LSP Show Diagnostics" }))
+      --   vim.keymap.set("n", "<leader>d", function()
+      --     vim.diagnostic.goto_next()
+      --   end, vim.tbl_deep_extend("force", opts, { desc = "Next Diagnostic" }))
+      --   vim.keymap.set("n", "]d", function()
+      --     vim.diagnostic.goto_prev()
+      --   end, vim.tbl_deep_extend("force", opts, { desc = "Previous Diagnostic" }))
+      --   vim.keymap.set("n", "<leader>vca", function()
+      --     vim.lsp.buf.code_action()
+      --   end, vim.tbl_deep_extend("force", opts, { desc = "LSP Code Action" }))
+      --   vim.lsp.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+      --   vim.lsp.buf.references()
+      -- end, vim.tbl_deep_extend("force", opts, { desc = "LSP References" }))
+      -- vim.keymap.set("n", "<leader>vrn", function()
+      --   vim.lsp.buf.rename()
+      -- end, vim.tbl_deep_extend("force", opts, { desc = "LSP Rename" }))
+      -- vim.keymap.set("i", "<C-h>", function()
+      --   vim.lsp.buf.signature_help()
+      -- end, vim.tbl_deep_extend("force", opts, { desc = "LSP Signature Help" }))
+      opts.desc = "Show LSP references"
+      keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
+
+      opts.desc = "Go to declaration"
+      keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+
+      opts.desc = "Show LSP definitions"
+      keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
+
+      opts.desc = "Show LSP implementations"
+      keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
+
+      opts.desc = "Show LSP type definitions"
+      keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+
+      opts.desc = "See available code actions"
+      keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+
+      opts.desc = "Smart rename"
+      keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
+
+      opts.desc = "Show buffer diagnostics"
+      keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
+
+      opts.desc = "Show line diagnostics"
+      keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
+
+      opts.desc = "Go to previous diagnostic"
+      keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+
+      opts.desc = "Go to next diagnostic"
+      keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+
+      opts.desc = "Show documentation for what is under cursor"
+      keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
+
+      opts.desc = "Restart LSP"
+      keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
     end)
 
     require("mason").setup({})
     require("mason-lspconfig").setup({
       ensure_installed = {
-        "typescript-language-server",
         "eslint",
         "rust_analyzer",
         "kotlin_language_server",
@@ -273,16 +311,16 @@ return {
         { name = "path" },
       },
 
-      mapping = cmp.mapping.preset.insert({
-        ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-        ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-f>"] = cmp_action.luasnip_jump_forward(),
-        ["<C-b>"] = cmp_action.luasnip_jump_backward(),
-        ["<Tab>"] = cmp_action.luasnip_supertab(),
-        ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
-      }),
+      -- mapping = cmp.mapping.preset.insert({
+      --   ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+      --   ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+      --   ["<CR>"] = cmp.mapping.confirm({ select = true }),
+      --   ["<C-Space>"] = cmp.mapping.complete(),
+      --   ["<C-f>"] = cmp_action.luasnip_jump_forward(),
+      --   ["<C-b>"] = cmp_action.luasnip_jump_backward(),
+      --   ["<Tab>"] = cmp_action.luasnip_supertab(),
+      --   ["<S-Tab>"] = cmp_action.luasnip_shift_supertab(),
+      -- }),
     })
   end,
 }
