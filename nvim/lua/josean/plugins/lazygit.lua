@@ -1,3 +1,4 @@
+--Using Snack's lazygit
 return {
   -- "kdheepak/lazygit.nvim",
   -- cmd = {

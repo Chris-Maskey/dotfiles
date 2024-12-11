@@ -11,7 +11,19 @@ return {
     nvimtree.setup({
       view = {
         side = "right",
-        width = 35,
+        width = 40,
+        -- enable floating view to remove side border
+        float = {
+          enable = true,
+          open_win_config = {
+            relative = "editor",
+            border = "none", -- remove border
+            width = 40,
+            height = vim.o.lines - 2,
+            row = 1,
+            col = vim.o.columns - 41,
+          },
+        },
       },
       -- change folder arrow icons
       renderer = {

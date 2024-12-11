@@ -166,37 +166,6 @@ return {
       local opts = { buffer = bufnr, remap = false }
       local keymap = vim.keymap -- for conciseness
 
-      -- vim.keymap.set("n", "gr", function()
-      --   vim.lsp.buf.references()
-      -- end, vim.tbl_deep_extend("force", opts, { desc = "LSP Goto Reference" }))
-      -- vim.keymap.set("n", "gd", function()
-      --   vim.keymap.set("n", "K", function()
-      --     vim.lsp.buf.hover()
-      --   end, vim.tbl_deep_extend("force", opts, { desc = "LSP Hover" }))
-      --   vim.keymap.set("n", "<leader>vws", function()
-      --     vim.lsp.buf.workspace_symbol()
-      --   end, vim.tbl_deep_extend("force", opts, { desc = "LSP Workspace Symbol" }))
-      --   vim.keymap.set("n", "<leader>vd", function()
-      --     vim.diagnostic.setloclist()
-      --   end, vim.tbl_deep_extend("force", opts, { desc = "LSP Show Diagnostics" }))
-      --   vim.keymap.set("n", "<leader>d", function()
-      --     vim.diagnostic.goto_next()
-      --   end, vim.tbl_deep_extend("force", opts, { desc = "Next Diagnostic" }))
-      --   vim.keymap.set("n", "]d", function()
-      --     vim.diagnostic.goto_prev()
-      --   end, vim.tbl_deep_extend("force", opts, { desc = "Previous Diagnostic" }))
-      --   vim.keymap.set("n", "<leader>vca", function()
-      --     vim.lsp.buf.code_action()
-      --   end, vim.tbl_deep_extend("force", opts, { desc = "LSP Code Action" }))
-      --   vim.lsp.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
-      --   vim.lsp.buf.references()
-      -- end, vim.tbl_deep_extend("force", opts, { desc = "LSP References" }))
-      -- vim.keymap.set("n", "<leader>vrn", function()
-      --   vim.lsp.buf.rename()
-      -- end, vim.tbl_deep_extend("force", opts, { desc = "LSP Rename" }))
-      -- vim.keymap.set("i", "<C-h>", function()
-      --   vim.lsp.buf.signature_help()
-      -- end, vim.tbl_deep_extend("force", opts, { desc = "LSP Signature Help" }))
       opts.desc = "Show LSP references"
       keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 

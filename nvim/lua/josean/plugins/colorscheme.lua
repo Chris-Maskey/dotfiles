@@ -1,3 +1,16 @@
+-- return {
+--   "navarasu/onedark.nvim",
+--   lazy = false,
+--   priority = 1000,
+--   config = function()
+--     require("onedark").setup({
+--       transparent = true,
+--       style = "cool",
+--     })
+--     require("onedark").load()
+--   end,
+-- }
+--
 return {
   "folke/tokyonight.nvim",
   lazy = false,
@@ -8,6 +21,7 @@ return {
     require("tokyonight").setup({
       style = "storm",
       transparent = transparent,
+      undercurl = true,
       styles = {
         sidebars = transparent and "transparent" or "dark",
         floats = transparent and "transparent" or "dark",
@@ -21,6 +35,7 @@ return {
     vim.cmd("colorscheme tokyonight-storm")
   end,
 }
+--
 --
 --
 -- return {
@@ -104,7 +119,7 @@ return {
 --         styles = {
 --           bold = true,
 --           italic = true,
---           transparency = false,
+--           transparency = true,
 --         },
 --
 --         groups = {
@@ -276,7 +291,7 @@ return {
 --           crust = "#141617",
 --         },
 --       },
---       transparent_background = false,
+--       transparent_background = true,
 --       show_end_of_buffer = false,
 --       integration_default = false,
 --       integrations = {
