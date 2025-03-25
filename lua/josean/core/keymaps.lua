@@ -24,3 +24,5 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 
 -- --Dismiss Noice Message
 keymap.set("n", "<leader>nd", "<cmd>NoiceDismiss<CR>", { desc = "Dismiss Noice Message" })
+keymap.set("n", "<leader>dv", ":DiffviewOpen<CR>", { desc = "Open Diffview", noremap = true, silent = true })
+keymap.set("n", "<leader>dx", ":DiffviewClose<CR>", { desc = "Close Diffview", noremap = true, silent = true })

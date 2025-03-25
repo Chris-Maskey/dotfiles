@@ -47,9 +47,9 @@ return {
     priority = 1000,
     config = function()
       require("catppuccin").setup({
-        flavour = "mocha", -- latte, frappe, macchiato, mocha
+        flavour = "frappe", -- latte, frappe, macchiato, mocha
         background = { -- :h background
-          dark = "mocha",
+          dark = "frappe",
         },
         transparent_background = true, -- disables setting the background color.
         show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
@@ -187,6 +187,41 @@ return {
 --       -- vim.cmd("colorscheme rose-pine-dawn")
 --     end,
 --   },
+-- }
+
+-- return {
+--   "rebelot/kanagawa.nvim",
+--   lazy = false, -- Ensure the plugin is loaded immediately
+--   priority = 1000, -- Set priority to make sure it loads first
+--   config = function()
+--     -- Default options for Kanagawa colorscheme
+--     require("kanagawa").setup({
+--       compile = false, -- Enable compiling the colorscheme
+--       undercurl = true, -- Enable undercurls
+--       commentStyle = { italic = true },
+--       functionStyle = {},
+--       keywordStyle = { italic = true },
+--       statementStyle = { bold = true },
+--       typeStyle = {},
+--       transparent = false, -- Do not set background color
+--       dimInactive = false, -- Dim inactive windows
+--       terminalColors = true, -- Define terminal colors
+--       colors = { -- Modify theme and palette colors
+--         palette = {},
+--         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+--       },
+--       overrides = function(colors) -- Modify highlights
+--         return {}
+--       end,
+--       theme = "wave", -- Load "wave" theme
+--       background = { -- Map the value of 'background' option to a theme
+--         dark = "wave", -- Try "dragon"!
+--         light = "lotus",
+--       },
+--     })
+--
+--     vim.cmd("colorscheme kanagawa") -- Set the colorscheme to Kanagawa
+--   end,
 -- }
 
 -- return {
